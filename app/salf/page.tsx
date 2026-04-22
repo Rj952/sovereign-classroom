@@ -8,11 +8,11 @@ import AiFeedback from "@/components/AiFeedback";
 type Domain = { key: "sovereignty" | "accountability" | "literacy" | "fairness" | "sustainability"; title: string; question: string; prompt: string; guidance: string; };
 
 const domains: Domain[] = [
-  { key: "sovereignty", title: "Sovereignty", question: "Does this policy reflect our institutional values and Caribbean pedagogical traditions?", prompt: "Think about where this policy came from. Was it written here? Adapted from a North American or European template?", guidance: "Score high when the policy explicitly names Caribbean values and cites Caribbean scholars." },
-  { key: "accountability", title: "Accountability", question: "Who is responsible when AI-assisted assessments produce inequitable outcomes?", prompt: "Trace the chain: if a student is wrongly flagged, who is the human accountable? Name them.", guidance: "Score high when the policy names specific offices and appeals processes." },
-  { key: "literacy", title: "Literacy", question: "Are faculty supported to understand how AI tools actually work before designing policies about them?", prompt: "Have we given faculty the time, training, and resources to understand these systems?", guidance: "Score high when the policy is paired with a funded faculty development programme." },
-  { key: "fairness", title: "Fairness", question: "Does this policy distribute the benefits and burdens of AI equitably?", prompt: "Who bears the cost of implementation errors? Who has easy access to approved tools?", guidance: "Score high when the policy explicitly addresses language, access, disability, and economic differences." },
-  { key: "sustainability", title: "Sustainability", question: "Is this a policy we can maintain — or are we building an arms race we cannot win?", prompt: "Is the institution committing resources it will actually have in three years?", guidance: "Score high when the policy invests in pedagogy, not perpetual vendor subscription." },
+  { key: "sovereignty", title: "Sovereignty", question: "Does this policy reflect our institutional values and Caribbean pedagogical traditions?", prompt: "Where did this policy come from? Was it written here or adapted from a North American template?", guidance: "Score high when the policy explicitly names Caribbean values and cites Caribbean scholars." },
+  { key: "accountability", title: "Accountability", question: "Who is responsible when AI-assisted assessments produce inequitable outcomes?", prompt: "If a student is wrongly flagged, who is the human accountable?", guidance: "Score high when the policy names specific offices and appeals processes." },
+  { key: "literacy", title: "Literacy", question: "Are faculty supported to understand how AI tools actually work before designing policies about them?", prompt: "Have we given faculty time, training, and resources?", guidance: "Score high when the policy is paired with a funded faculty development programme." },
+  { key: "fairness", title: "Fairness", question: "Does this policy distribute the benefits and burdens of AI equitably?", prompt: "Who bears the cost of implementation errors?", guidance: "Score high when the policy explicitly addresses language, access, disability, and economic differences." },
+  { key: "sustainability", title: "Sustainability", question: "Is this a policy we can maintain, or are we building an arms race we cannot win?", prompt: "Is the institution committing resources it will actually have in three years?", guidance: "Score high when the policy invests in pedagogy, not perpetual vendor subscription." },
 ];
 
 export default function SALFPage() {
@@ -23,20 +23,16 @@ export default function SALFPage() {
   const complete = answered === domains.length;
 
   const aiPrompt = useMemo(() => {
-    const lines = domains.map(d => `- ${d.title}: ${answers[d.key] ?? 0}/4${notes[d.key] ? ` — note: ${notes[d.key]}` : ""}`).join("
-");
-    return `A faculty member is auditing an AI assessment policy at their Caribbean higher education institution using the SALF framework (Sovereignty, Accountability, Literacy, Fairness, Sustainability). Here are their scores (0=not at all, 4=fully):
-
-${lines}
-
-Overall score: ${Math.round(score*100)}%
-
-In 3-4 short paragraphs, give them: (1) your specific read on what the scores reveal about the policy's sovereignty posture, (2) the ONE domain they should strengthen first with a concrete, institutionally-actionable suggestion rooted in Caribbean context, (3) one question they should raise at their next faculty meeting. Be warm but direct. Cite specific Caribbean examples where helpful.`;
+    const list = domains.map(d => "- " + d.title + ": " + (answers[d.key] ?? 0) + "/4" + (notes[d.key] ? " (note: " + notes[d.key] + ")" : "")).join("\n");
+    let p = "A faculty member is auditing an AI assessment policy at their Caribbean higher education institution using the SALF framework (Sovereignty, Accountability, Literacy, Fairness, Sustainability). Scores 0-4:\n\n";
+    p += list + "\n\nOverall: " + Math.round(score*100) + "%\n\n";
+    p += "In 3-4 short paragraphs, give them: (1) what these scores reveal about the policy\u0027s sovereignty posture, (2) the ONE domain to strengthen first with a concrete, institutionally-actionable suggestion rooted in Caribbean context, (3) one question they should raise at their next faculty meeting. Cite specific Caribbean examples where helpful.";
+    return p;
   }, [answers, notes, score]);
 
   return (
     <div className="max-w-3xl mx-auto px-5 py-10">
-      <Section eyebrow="SALF · Sovereign AI Leadership Framework" accent="text-sea" title="A policy check, not a compliance exercise." subtitle="Before you adopt any AI assessment policy — whether written at home or arriving pre-packaged from abroad — run it through these five foundational questions." />
+      <Section eyebrow="SALF · Sovereign AI Leadership Framework" accent="text-sea" title="A policy check, not a compliance exercise." subtitle="Before you adopt any AI assessment policy, run it through these five foundational questions." />
       <div className="space-y-6">
         {domains.map((d, i) => (
           <article key={d.key} className="rounded-2xl bg-white border border-ink/10 shadow-soft p-6">
@@ -51,15 +47,15 @@ In 3-4 short paragraphs, give them: (1) your specific read on what the scores re
       </div>
       {answered > 0 && (
         <section className="mt-10">
-          <h2 className="font-display text-2xl mb-4 text-ink">{complete ? "Your SALF reading" : `Preliminary reading (${answered}/5)`}</h2>
+          <h2 className="font-display text-2xl mb-4 text-ink">{complete ? "Your SALF reading" : ("Preliminary reading (" + answered + "/5)")}</h2>
           <ResultBand score={score} bands={[
-            { min: 0, tone: "coral", label: "Sovereignty surrendered", message: "This policy is primarily executing someone else's framework. Before adopting, negotiate." },
-            { min: 35, tone: "sun", label: "Partial sovereignty", message: "There are Caribbean fingerprints on this policy, but also significant imports." },
-            { min: 65, tone: "palm", label: "Approaching sovereignty", message: "This policy shows genuine engagement with Caribbean traditions. Strengthen the weakest domain." },
-            { min: 85, tone: "sea", label: "Sovereign practice", message: "This policy is a Caribbean framework in its own right. Consider publishing it." },
+            { min: 0, tone: "coral", label: "Sovereignty surrendered", message: "This policy is primarily executing someone else\u0027s framework. Negotiate before adopting." },
+            { min: 35, tone: "sun", label: "Partial sovereignty", message: "Caribbean fingerprints are present, but also significant imports." },
+            { min: 65, tone: "palm", label: "Approaching sovereignty", message: "Genuine engagement with Caribbean traditions. Strengthen the weakest domain." },
+            { min: 85, tone: "sea", label: "Sovereign practice", message: "A Caribbean framework in its own right. Consider publishing it." },
           ]} />
           {complete && (
-            <AiFeedback systemPrompt="You are a Caribbean higher education policy advisor specializing in AI governance. You are grounded in Caribbean pedagogical traditions, intimately familiar with Jamaica, Trinidad, Barbados, Guyana, and other regional institutions. You give concrete, actionable advice that respects institutional realities (budget constraints, small-island contexts, diaspora student populations). Never generic." userPrompt={aiPrompt} accent="bg-sea" buttonLabel="Generate SALF advice with AI" helperText="Claude will read your scores and notes, then give you a targeted Caribbean-grounded response." />
+            <AiFeedback systemPrompt="You are a Caribbean higher education policy advisor specializing in AI governance. You give concrete, actionable advice that respects institutional realities (budget constraints, small-island contexts, diaspora student populations)." userPrompt={aiPrompt} accent="bg-sea" buttonLabel="Generate SALF advice with AI" helperText="Claude will read your scores and notes, then give you targeted Caribbean-grounded advice." />
           )}
           <p className="mt-6 text-xs text-ink/60 italic">SALF © Dr. Rohan Jowallah, 2026. Cite explicitly in any institutional use.</p>
         </section>
