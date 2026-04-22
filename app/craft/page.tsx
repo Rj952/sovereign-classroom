@@ -6,11 +6,11 @@ import AiFeedback from "@/components/AiFeedback";
 type Field = { key: "context" | "role" | "action" | "format" | "threshold"; title: string; prompt: string; placeholder: string; hint: string; example: string; };
 
 const fields: Field[] = [
-  { key: "context", title: "Context", prompt: "Where does this task take place? Whose problem is being solved? Name the specific Caribbean setting.", placeholder: "e.g., Advising the Jamaican Ministry of Finance on lessons from 2008.", hint: "A real institution, a real policy window, a real community.", example: "Advising the Jamaican Ministry of Finance on lessons from 2008 as they develop a national digital currency policy." },
-  { key: "role", title: "Role", prompt: "Who is the student being asked to become? Name the role precisely.", placeholder: "e.g., An economic analyst with expertise in Caribbean financial systems.", hint: "Roles invite stance, voice, and authority.", example: "An economic analyst with expertise in Caribbean financial systems and SIDS economies." },
-  { key: "action", title: "Action", prompt: "What, exactly, is the student being asked to produce?", placeholder: "e.g., Draft a 1,500-word policy brief identifying three lessons.", hint: "Action verbs with teeth: advise, decide, defend, reconcile, negotiate, redesign.", example: "Draft a 1,500-word policy brief identifying three lessons from 2008 and applying each to Jamaica's digital currency risk profile." },
-  { key: "format", title: "Format", prompt: "What shape must the work take? Format signals the audience and the stakes.", placeholder: "e.g., Policy brief with executive summary and recommendations.", hint: "Policy briefs, ministerial memos, community consultation plans, oral defences.", example: "Policy brief with executive summary, three-lesson analysis, evidence-based recommendations, and a one-paragraph risk statement." },
-  { key: "threshold", title: "Threshold", prompt: "What must be true of the work for it to count? This is the AI-resistance clause.", placeholder: "e.g., Must draw on Caribbean data, cite Caribbean sources.", hint: "Threshold is what separates a task AI can fake from a task requiring lived knowledge.", example: "Must draw on Caribbean-specific data, cite at least two Caribbean scholars, and reflect Jamaica's regulatory history." },
+  { key: "context", title: "Context", prompt: "Where does this task take place? Whose problem is being solved? Name the specific Caribbean setting.", placeholder: "e.g., Advising the Jamaican Ministry of Finance.", hint: "A real institution, a real policy window, a real community.", example: "Advising the Jamaican Ministry of Finance on lessons from 2008 as they develop a national digital currency policy." },
+  { key: "role", title: "Role", prompt: "Who is the student being asked to become?", placeholder: "e.g., An economic analyst with expertise in Caribbean financial systems.", hint: "Roles invite stance, voice, and authority.", example: "An economic analyst with expertise in Caribbean financial systems and SIDS economies." },
+  { key: "action", title: "Action", prompt: "What, exactly, is the student being asked to produce?", placeholder: "e.g., Draft a 1,500-word policy brief.", hint: "Action verbs with teeth: advise, decide, defend, reconcile.", example: "Draft a 1,500-word policy brief identifying three lessons from 2008 and applying each to Jamaica\u0027s digital currency risk profile." },
+  { key: "format", title: "Format", prompt: "What shape must the work take? Format signals the audience and the stakes.", placeholder: "e.g., Policy brief with executive summary.", hint: "Policy briefs, ministerial memos, oral defences.", example: "Policy brief with executive summary, three-lesson analysis, evidence-based recommendations." },
+  { key: "threshold", title: "Threshold", prompt: "What must be true of the work for it to count? This is the AI-resistance clause.", placeholder: "e.g., Must draw on Caribbean data, cite Caribbean sources.", hint: "Threshold separates a task AI can fake from a task requiring lived knowledge.", example: "Must draw on Caribbean-specific data, cite at least two Caribbean scholars, and reflect Jamaica\u0027s regulatory history." },
 ];
 
 export default function CRAFTPage() {
@@ -30,23 +30,16 @@ export default function CRAFTPage() {
   }, [values]);
 
   const aiPrompt = useMemo(() => {
-    const briefText = fields.map(fl => `${fl.title.toUpperCase()}:
-${values[fl.key] || "(empty)"}`).join("
-
-");
-    return `A faculty member has designed an assessment using the CRAFT framework (Context, Role, Action, Format, Threshold). Estimated AI-resistance: ${Math.round(aiResistanceScore*100)}%.
-
-THEIR BRIEF:
-
-${briefText}
-
-In 3 short paragraphs, give them: (1) a frank critique of how well this brief would resist a large language model attempting to complete it, (2) ONE specific addition to the THRESHOLD section that would substantially increase AI-resistance — anchored in the Caribbean context they've already named, (3) one viva voce question they could ask the student to verify the work is theirs. Be concrete; reference their actual content.`;
+    let p = "A faculty member has designed an assessment using the CRAFT framework (Context, Role, Action, Format, Threshold). Estimated AI-resistance: " + Math.round(aiResistanceScore*100) + "%.\n\nTHEIR BRIEF:\n\n";
+    for (const fl of fields) { p += fl.title.toUpperCase() + ":\n" + (values[fl.key] || "(empty)") + "\n\n"; }
+    p += "In 3 short paragraphs: (1) frank critique of how well this brief would resist a large language model, (2) ONE specific addition to THRESHOLD that would substantially increase AI-resistance, anchored in the Caribbean context they\u0027ve named, (3) one viva voce question they could ask the student to verify the work is theirs. Be concrete; reference their actual content.";
+    return p;
   }, [values, aiResistanceScore]);
 
   return (
     <div className="max-w-3xl mx-auto px-5 py-10">
-      <Section eyebrow="CRAFT · Context · Role · Action · Format · Threshold" accent="text-sun" title="Design an assessment AI cannot convincingly fake." subtitle="Five steps. Ten minutes. At the end you'll have a Caribbean-anchored assessment brief you can print and hand to your students." />
-      <div className="flex items-center gap-1 mb-8">{fields.map((fl, i) => (<div key={fl.key} className={`flex-1 h-2 rounded-full ${i < step ? "bg-sun" : i === step ? "bg-ink" : "bg-ink/10"}`} />))}</div>
+      <Section eyebrow="CRAFT · Context · Role · Action · Format · Threshold" accent="text-sun" title="Design an assessment AI cannot convincingly fake." subtitle="Five steps. Ten minutes. At the end you will have a Caribbean-anchored brief you can print." />
+      <div className="flex items-center gap-1 mb-8">{fields.map((fl, i) => (<div key={fl.key} className={"flex-1 h-2 rounded-full " + (i < step ? "bg-sun" : i === step ? "bg-ink" : "bg-ink/10")} />))}</div>
       <article className="rounded-2xl bg-white border border-ink/10 shadow-soft p-6 md:p-8">
         <p className="uppercase text-xs tracking-wider text-ink/60 mb-1">Step {step + 1} of {fields.length}</p>
         <h2 className="font-display text-3xl text-ink">{field.title}</h2>
@@ -78,7 +71,7 @@ In 3 short paragraphs, give them: (1) a frank critique of how well this brief wo
           </article>
           <div className="mt-6 rounded-2xl bg-ink text-sand p-5">
             <div className="flex items-baseline justify-between"><p className="font-display text-xl">Estimated AI-resistance</p><p className="text-sand/80 text-sm">{Math.round(aiResistanceScore * 100)}%</p></div>
-            <div className="h-2 rounded-full bg-sand/15 mt-3 overflow-hidden"><div className="h-full bg-sun transition-all" style={{ width: `${Math.round(aiResistanceScore * 100)}%` }} /></div>
+            <div className="h-2 rounded-full bg-sand/15 mt-3 overflow-hidden"><div className="h-full bg-sun transition-all" style={{ width: Math.round(aiResistanceScore * 100) + "%" }} /></div>
           </div>
           <AiFeedback systemPrompt="You are a Caribbean assessment design expert. You read assessment briefs critically and suggest concrete, single-paragraph improvements. You always reference the specific Caribbean content the user has provided." userPrompt={aiPrompt} accent="bg-sun text-ink" buttonLabel="Generate CRAFT critique with AI" helperText="Claude will critique your brief and suggest one specific Threshold addition + a viva voce question." />
           <p className="mt-6 text-xs text-ink/60 italic">CRAFT © Dr. Rohan Jowallah, 2025. Cite explicitly.</p>
