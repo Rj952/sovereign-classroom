@@ -8,10 +8,10 @@ import AiFeedback from "@/components/AiFeedback";
 type Dim = { key: "accuracy" | "completeness" | "relevance" | "equity"; title: string; question: string; probes: string[]; lowFix: string; };
 
 const dims: Dim[] = [
-  { key: "accuracy", title: "Accuracy", question: "Does this assessment measure what we claim — or does it also measure familiarity with AI tools, internet access, or first-language fluency in academic English?", probes: ["Would a multilingual student writing in Caribbean English be penalised for style rather than thinking?", "Is an AI-detection score treated as evidence of misconduct rather than a flag for conversation?", "Does the rubric measure the intended competency, or proxies for it?"], lowFix: "Replace the AI-detection flag with a brief oral conversation. Revise rubric language so Caribbean English is explicitly acceptable." },
-  { key: "completeness", title: "Completeness", question: "Does it capture the full range of competencies we value — including oral tradition, community knowledge, and embodied expertise?", probes: ["Can a student with strong oral reasoning and weak written polish demonstrate mastery?", "Is community or family knowledge treated as legitimate evidence?", "Is written text the only mode of assessment, or are alternatives valid?"], lowFix: "Add a viva voce, process portfolio, or community-engaged component." },
-  { key: "relevance", title: "Relevance", question: "Is this anchored in problems meaningful to Caribbean students — or do we default to European or North American exemplars as if they were universal?", probes: ["Are the cases, datasets, and examples from the Caribbean?", "Would a student from the region feel this task speaks to their professional future?", "Do cited authors include Caribbean scholars?"], lowFix: "Swap out one imported case for a Caribbean equivalent. Add a required Caribbean citation." },
-  { key: "equity", title: "Equity", question: "Who is most likely to be disadvantaged — and is that a product of genuine learning differences or structural inequities in the design itself?", probes: ["Does the task assume reliable internet, paid software, or a quiet study environment?", "Are students with caring responsibilities, part-time work, or disability treated fairly in time allocation?", "Does the scoring rubric translate cultural variation as deficit?"], lowFix: "Offer offline-compatible options. Extend timeframes where structural context warrants." },
+  { key: "accuracy", title: "Accuracy", question: "Does this assessment measure what we claim, or does it also measure familiarity with AI tools, internet access, or first-language fluency in academic English?", probes: ["Would a multilingual student writing in Caribbean English be penalised for style rather than thinking?", "Is an AI-detection score treated as evidence of misconduct?", "Does the rubric measure the intended competency?"], lowFix: "Replace AI-detection with a brief oral conversation. Make Caribbean English explicitly acceptable in the rubric." },
+  { key: "completeness", title: "Completeness", question: "Does it capture the full range of competencies we value, including oral tradition, community knowledge, and embodied expertise?", probes: ["Can a student with strong oral reasoning and weak written polish demonstrate mastery?", "Is community or family knowledge treated as legitimate evidence?", "Is written text the only mode of assessment?"], lowFix: "Add a viva voce, process portfolio, or community-engaged component." },
+  { key: "relevance", title: "Relevance", question: "Is this anchored in problems meaningful to Caribbean students, or do we default to European or North American exemplars as if they were universal?", probes: ["Are the cases, datasets, and examples from the Caribbean?", "Would a student feel this task speaks to their professional future?", "Do cited authors include Caribbean scholars?"], lowFix: "Swap one imported case for a Caribbean equivalent. Add a required Caribbean citation." },
+  { key: "equity", title: "Equity", question: "Who is most likely to be disadvantaged, and is that a product of genuine learning differences or structural inequities in the design itself?", probes: ["Does the task assume reliable internet, paid software, or a quiet study environment?", "Are students with caring responsibilities or disability treated fairly in time allocation?", "Does the rubric translate cultural variation as deficit?"], lowFix: "Offer offline-compatible options. Extend timeframes where structural context warrants." },
 ];
 
 export default function ACREPage() {
@@ -25,17 +25,13 @@ export default function ACREPage() {
   const weaknesses = useMemo(() => dims.filter((d) => (answers[d.key] ?? 5) <= 2).sort((a, b) => (answers[a.key] ?? 0) - (answers[b.key] ?? 0)), [answers]);
 
   const aiPrompt = useMemo(() => {
-    const lines = dims.map(d => `- ${d.title}: ${answers[d.key] ?? 0}/4${notes[d.key] ? ` — note: ${notes[d.key]}` : ""}`).join("
-");
-    return `A Caribbean university faculty member has audited an assessment using the ACRE framework (Accuracy, Completeness, Relevance, Equity). Higher = stronger.
-
-Assessment${title ? `: "${title}"` : ""}${paste ? `\n\nPrompt text they shared:\n${paste}` : ""}
-
-Scores:
-${lines}
-Overall: ${Math.round(score*100)}%
-
-In 3 short paragraphs, give them: (1) what these scores reveal about who is being disadvantaged by this design, (2) the SINGLE highest-impact equity revision they should make first — concrete and Caribbean-anchored, (3) one specific rubric line they could rewrite, with sample wording. Be candid, kind, specific.`;
+    const scoresList = dims.map(d => "- " + d.title + ": " + (answers[d.key] ?? 0) + "/4" + (notes[d.key] ? " (note: " + notes[d.key] + ")" : "")).join("\n");
+    let p = "A Caribbean university faculty member has audited an assessment using the ACRE framework (Accuracy, Completeness, Relevance, Equity). Higher = stronger.\n\n";
+    if (title) p += "Assessment: " + title + "\n\n";
+    if (paste) p += "Prompt text they shared:\n" + paste + "\n\n";
+    p += "Scores:\n" + scoresList + "\nOverall: " + Math.round(score*100) + "%\n\n";
+    p += "In 3 short paragraphs, give them: (1) what these scores reveal about who is being disadvantaged, (2) the SINGLE highest-impact equity revision they should make first (concrete and Caribbean-anchored), (3) one specific rubric line they could rewrite, with sample wording. Be candid, kind, specific.";
+    return p;
   }, [answers, notes, title, paste, score]);
 
   return (
@@ -58,7 +54,7 @@ In 3 short paragraphs, give them: (1) what these scores reveal about who is bein
       </div>
       {answered > 0 && (
         <section className="mt-10">
-          <h2 className="font-display text-2xl mb-4 text-ink">{complete ? `Equity audit${title ? ` — ${title}` : ""}` : `Preliminary reading (${answered}/4)`}</h2>
+          <h2 className="font-display text-2xl mb-4 text-ink">{complete ? ("Equity audit" + (title ? " — " + title : "")) : ("Preliminary reading (" + answered + "/4)")}</h2>
           <ResultBand score={score} bands={[
             { min: 0, tone: "coral", label: "Structural redesign needed", message: "Treat this as urgent redesign." },
             { min: 35, tone: "sun", label: "Significant revision warranted", message: "Target lowest-scoring dimensions." },
@@ -72,7 +68,7 @@ In 3 short paragraphs, give them: (1) what these scores reveal about who is bein
             </div>
           )}
           {complete && (
-            <AiFeedback systemPrompt="You are a Caribbean equity auditor for academic assessments. You read assessment audits and recommend the single highest-impact equity revision, with sample rubric wording. You always reference the user's actual scores and any pasted prompt text." userPrompt={aiPrompt} accent="bg-coral" buttonLabel="Generate ACRE redesign with AI" helperText="Claude will read your audit and propose one concrete rubric rewrite." />
+            <AiFeedback systemPrompt="You are a Caribbean equity auditor for academic assessments. You read assessment audits and recommend the single highest-impact equity revision, with sample rubric wording. You always reference the user\u0027s actual scores and any pasted prompt text." userPrompt={aiPrompt} accent="bg-coral" buttonLabel="Generate ACRE redesign with AI" helperText="Claude will read your audit and propose one concrete rubric rewrite." />
           )}
           <p className="mt-6 text-xs text-ink/60 italic">ACRE © Dr. Rohan Jowallah, 2025. Cite explicitly in any institutional use.</p>
         </section>
