@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import Section from "@/components/Section";
 import Likert from "@/components/Likert";
 import ResultBand from "@/components/ResultBand";
+import AiFeedback from "@/components/AiFeedback";
 
 type Dim = { key: "consider" | "analyse" | "reflect" | "evaluate"; title: string; question: string; examples: string[]; };
 
@@ -20,6 +21,21 @@ export default function CAREPage() {
   const answered = Object.keys(answers).length;
   const complete = answered === dims.length;
   const weakest = useMemo(() => { if (!complete) return null; let m: Dim | null = null; let mv = 5; for (const d of dims) { const v = answers[d.key] ?? 0; if (v < mv) { mv = v; m = d; } } return m; }, [answers, complete]);
+
+  const aiPrompt = useMemo(() => {
+    const lines = dims.map(d => `- ${d.title}: ${answers[d.key] ?? 0}/4`).join("
+");
+    return `A Caribbean university faculty member has used the CARE framework (Consider, Analyse, Reflect, Evaluate) to diagnose how AI-replaceable an existing assessment is. Higher scores = more irreducibly human thinking.
+
+Assessment${title ? `: "${title}"` : ""}.
+
+Scores:
+${lines}
+Overall AI-resistance: ${Math.round(score*100)}%
+
+In 3 short paragraphs, give them: (1) what these scores reveal about how a large language model could complete this task, (2) the SINGLE most-impactful redesign move targeting their weakest dimension — make it concrete and Caribbean-anchored, (3) a sample reworded prompt sentence they could try this semester. Be direct, kind, and specific.`;
+  }, [answers, title, score]);
+
   return (
     <div className="max-w-3xl mx-auto px-5 py-10">
       <Section eyebrow="CARE · Consider · Analyse · Reflect · Evaluate" accent="text-palm" title="What kind of thinking does this assessment actually demand?" subtitle="Name an assessment you currently give. Score it honestly. The CARE diagnostic tells you — in under three minutes — how much of the thinking an AI system can do for your students." />
@@ -38,17 +54,20 @@ export default function CAREPage() {
         <section className="mt-10">
           <h2 className="font-display text-2xl mb-4 text-ink">{complete ? `AI-replaceability reading${title ? ` — ${title}` : ""}` : `Preliminary reading (${answered}/4)`}</h2>
           <ResultBand score={score} bands={[
-            { min: 0, tone: "coral", label: "A large language model could largely complete this", message: "The assessment asks mostly for recall and reproduction. Redesign around the weakest dimension." },
-            { min: 35, tone: "sun", label: "Partially AI-resistant", message: "There are moments of genuinely human thinking here. Strengthen the weakest dimension by anchoring it to Caribbean context." },
-            { min: 65, tone: "palm", label: "Substantially human work", message: "The task demands thinking AI cannot easily replicate. Protect what works." },
-            { min: 85, tone: "sea", label: "Irreducibly human", message: "This measures what students carry. Document it; share it; let it set the benchmark." },
+            { min: 0, tone: "coral", label: "A large language model could largely complete this", message: "Redesign around the weakest dimension." },
+            { min: 35, tone: "sun", label: "Partially AI-resistant", message: "Strengthen the weakest dimension by anchoring to Caribbean context." },
+            { min: 65, tone: "palm", label: "Substantially human work", message: "Protect what works." },
+            { min: 85, tone: "sea", label: "Irreducibly human", message: "This measures what students carry. Document it; share it." },
           ]} />
           {complete && weakest && (
             <div className="mt-6 rounded-2xl bg-ink text-sand p-5">
               <p className="uppercase tracking-wider text-xs opacity-70">Weakest dimension</p>
               <p className="font-display text-2xl mt-1">{weakest.title}</p>
-              <p className="mt-2 opacity-90">Start the redesign here. Rewrite the task so that {weakest.title.toLowerCase()} becomes unavoidable — not a bonus.</p>
+              <p className="mt-2 opacity-90">Start the redesign here. Rewrite the task so {weakest.title.toLowerCase()} becomes unavoidable.</p>
             </div>
+          )}
+          {complete && (
+            <AiFeedback systemPrompt="You are a Caribbean assessment design expert and university teacher. You give faculty short, concrete advice rooted in Caribbean realities (CXC traditions, regional examples, multilingual student populations). You never give generic feedback." userPrompt={aiPrompt} accent="bg-palm" buttonLabel="Generate CARE redesign with AI" helperText="Claude will read your CARE scores and suggest the highest-impact redesign move." />
           )}
           <p className="mt-6 text-xs text-ink/60 italic">CARE © Dr. Rohan Jowallah, 2025. Cite explicitly in any institutional use.</p>
         </section>
