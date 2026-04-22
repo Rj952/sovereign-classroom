@@ -1,6 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import Section from "@/components/Section";
+import AiFeedback from "@/components/AiFeedback";
 
 type Field = { key: "context" | "role" | "action" | "format" | "threshold"; title: string; prompt: string; placeholder: string; hint: string; example: string; };
 
@@ -27,6 +28,21 @@ export default function CRAFTPage() {
     const lengthBonus = fields.reduce((a, fl) => a + Math.min(1, (values[fl.key]?.length ?? 0) / 120), 0);
     return Math.min(1, hits / 10 + lengthBonus / fields.length);
   }, [values]);
+
+  const aiPrompt = useMemo(() => {
+    const briefText = fields.map(fl => `${fl.title.toUpperCase()}:
+${values[fl.key] || "(empty)"}`).join("
+
+");
+    return `A faculty member has designed an assessment using the CRAFT framework (Context, Role, Action, Format, Threshold). Estimated AI-resistance: ${Math.round(aiResistanceScore*100)}%.
+
+THEIR BRIEF:
+
+${briefText}
+
+In 3 short paragraphs, give them: (1) a frank critique of how well this brief would resist a large language model attempting to complete it, (2) ONE specific addition to the THRESHOLD section that would substantially increase AI-resistance — anchored in the Caribbean context they've already named, (3) one viva voce question they could ask the student to verify the work is theirs. Be concrete; reference their actual content.`;
+  }, [values, aiResistanceScore]);
+
   return (
     <div className="max-w-3xl mx-auto px-5 py-10">
       <Section eyebrow="CRAFT · Context · Role · Action · Format · Threshold" accent="text-sun" title="Design an assessment AI cannot convincingly fake." subtitle="Five steps. Ten minutes. At the end you'll have a Caribbean-anchored assessment brief you can print and hand to your students." />
@@ -64,6 +80,7 @@ export default function CRAFTPage() {
             <div className="flex items-baseline justify-between"><p className="font-display text-xl">Estimated AI-resistance</p><p className="text-sand/80 text-sm">{Math.round(aiResistanceScore * 100)}%</p></div>
             <div className="h-2 rounded-full bg-sand/15 mt-3 overflow-hidden"><div className="h-full bg-sun transition-all" style={{ width: `${Math.round(aiResistanceScore * 100)}%` }} /></div>
           </div>
+          <AiFeedback systemPrompt="You are a Caribbean assessment design expert. You read assessment briefs critically and suggest concrete, single-paragraph improvements. You always reference the specific Caribbean content the user has provided." userPrompt={aiPrompt} accent="bg-sun text-ink" buttonLabel="Generate CRAFT critique with AI" helperText="Claude will critique your brief and suggest one specific Threshold addition + a viva voce question." />
           <p className="mt-6 text-xs text-ink/60 italic">CRAFT © Dr. Rohan Jowallah, 2025. Cite explicitly.</p>
         </section>
       )}
