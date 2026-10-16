@@ -9,24 +9,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        sand: "#F5EFE6",
-        ink: "#0F1B2D",
-        sea: "#0B7B8A",
-        sun: "#E3A93B",
-        coral: "#C9543D",
-        palm: "#1F6B4B",
+        // Caribbean palette: cream sand, night-sea navy, sun gold, hibiscus red, sea teal, hill green.
+        sand: "#FAF4E8",
+        ink: "#0B1A30",
+        sea: "#0B7373",
+        sun: "#F4B400",
+        coral: "#D62839",
+        palm: "#2E7D4F",
+        iris: "#6B3FA0",
         mist: "#E8EEF2",
       },
       fontFamily: {
-        display: ['"Playfair Display"', "Georgia", "serif"],
-        sans: ['Inter', "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["Archivo", "system-ui", "sans-serif"],
+        sans: ['"Source Sans 3"', "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ["Fraunces", "Georgia", "serif"],
       },
       boxShadow: {
-        soft: "0 10px 30px -12px rgba(15, 27, 45, 0.18)",
+        soft: "0 10px 30px -12px rgba(11, 26, 48, 0.18)",
       },
     },
   },
   plugins: [],
 };
 export default config;
- 
