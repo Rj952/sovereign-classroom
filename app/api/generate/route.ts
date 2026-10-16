@@ -25,7 +25,9 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify({
         model: "claude-haiku-5-5",
-        max_tokens: 1024,
+        // Haiku 5.5 thinks by default; low effort keeps short reflections fast and leaves room for the answer.
+        max_tokens: 4096,
+        output_config: { effort: "low" },
         system: system || "You are a pedagogical expert on Caribbean higher education assessment in the age of AI. Be concise, practical, and grounded in specific Caribbean contexts.",
         messages: [{ role: "user", content: prompt }],
       }),
@@ -38,7 +40,8 @@ export async function POST(req: Request) {
       });
     }
     const data = await response.json();
-    const text = Array.isArray(data.content) && data.content[0] && data.content[0].text ? data.content[0].text : "";
+    // The reply can start with a thinking block, so collect every text block rather than reading content[0].
+    const text = Array.isArray(data.content) ? data.content.filter((b: any) => b.type === "text").map((b: any) => b.text).join("\n\n") : "";
     return new Response(JSON.stringify({ text }), {
       headers: { "Content-Type": "application/json" },
     });
