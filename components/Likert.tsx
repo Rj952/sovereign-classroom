@@ -7,15 +7,15 @@ export default function Likert({ name, value, onChange, lowLabel = "Not at all",
   for (let i = min; i <= max; i++) steps.push(i);
   return (
     <div className="mt-3">
-      <div role="radiogroup" aria-label={name} className="flex items-center gap-2">
+      <div role="radiogroup" aria-label={name} className="flex flex-wrap items-center gap-2">
         {steps.map((s) => {
           const selected = s === value;
           return (
-            <button key={s} role="radio" aria-checked={selected} type="button" onClick={() => onChange(s)} className={`w-10 h-10 rounded-full border text-sm font-medium transition-all ${selected ? "bg-ink text-sand border-ink shadow-soft scale-105" : "bg-white text-ink/70 border-ink/20 hover:border-ink/50"}`}>{s}</button>
+            <button key={s} role="radio" aria-checked={selected} type="button" onClick={() => onChange(s)} className={`w-12 h-12 rounded-full border-2 font-display font-black text-lg transition-colors ${selected ? "bg-ink text-sun border-ink" : "bg-sand text-ink border-[#D8D0BF] hover:border-ink"}`}>{s}</button>
           );
         })}
       </div>
-      <div className="flex justify-between text-xs text-ink/55 mt-1.5 px-1">
+      <div className="flex justify-between gap-4 text-sm text-[#3D4657] mt-2 px-1">
         <span>{lowLabel}</span>
         <span>{highLabel}</span>
       </div>

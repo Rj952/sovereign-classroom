@@ -31,12 +31,12 @@ export default function SALFPage() {
   }, [answers, notes, score]);
 
   return (
-    <div className="max-w-3xl mx-auto px-5 py-10">
+    <div className="max-w-3xl mx-auto px-5 pt-10 pb-16">
       <Section eyebrow="SALF · Sovereign AI Leadership Framework" accent="text-sea" title="A policy check, not a compliance exercise." subtitle="Before you adopt any AI assessment policy, run it through these five foundational questions." />
       <div className="space-y-6">
         {domains.map((d, i) => (
           <article key={d.key} className="rounded-2xl bg-white border border-ink/10 shadow-soft p-6">
-            <div className="flex items-baseline gap-3"><span className="text-sea font-display text-2xl">{i + 1}</span><h2 className="font-display text-xl text-ink">{d.title}</h2></div>
+            <div className="flex items-baseline gap-3"><span className="text-sea font-display font-extrabold text-2xl">{i + 1}</span><h2 className="font-display font-black uppercase text-xl text-ink">{d.title}</h2></div>
             <p className="mt-2 text-ink/85">{d.question}</p>
             <p className="mt-1 text-sm text-ink/60">{d.prompt}</p>
             <Likert name={d.title} value={answers[d.key] ?? 0} onChange={(v) => setAnswers({ ...answers, [d.key]: v })} lowLabel="Not at all" highLabel="Fully" />
@@ -47,7 +47,7 @@ export default function SALFPage() {
       </div>
       {answered > 0 && (
         <section className="mt-10">
-          <h2 className="font-display text-2xl mb-4 text-ink">{complete ? "Your SALF reading" : ("Preliminary reading (" + answered + "/5)")}</h2>
+          <h2 className="font-display font-black uppercase text-2xl mb-4 text-ink">{complete ? "Your SALF reading" : ("Preliminary reading (" + answered + "/5)")}</h2>
           <ResultBand score={score} bands={[
             { min: 0, tone: "coral", label: "Sovereignty surrendered", message: "This policy is primarily executing someone else\u0027s framework. Negotiate before adopting." },
             { min: 35, tone: "sun", label: "Partial sovereignty", message: "Caribbean fingerprints are present, but also significant imports." },

@@ -15,7 +15,7 @@ export default function ResultBand({ score, bands }: Props) {
   return (
     <div className={`rounded-2xl border p-5 ${toneMap[current.tone]}`} role="status" aria-live="polite">
       <div className="flex items-baseline justify-between">
-        <p className="font-display text-2xl">{current.label}</p>
+        <p className="font-display font-extrabold text-2xl">{current.label}</p>
         <p className="text-sm font-semibold text-ink/70">{pct}%</p>
       </div>
       <div className="h-2 rounded-full bg-ink/10 mt-3 overflow-hidden">

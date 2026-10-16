@@ -37,12 +37,12 @@ export default function CRAFTPage() {
   }, [values, aiResistanceScore]);
 
   return (
-    <div className="max-w-3xl mx-auto px-5 py-10">
-      <Section eyebrow="CRAFT · Context · Role · Action · Format · Threshold" accent="text-sun" title="Design an assessment AI cannot convincingly fake." subtitle="Five steps. Ten minutes. At the end you will have a Caribbean-anchored brief you can print." />
+    <div className="max-w-3xl mx-auto px-5 pt-10 pb-16">
+      <Section eyebrow="CRAFT · Context · Role · Action · Format · Threshold" accent="text-[#B07D00]" title="Design an assessment AI cannot convincingly fake." subtitle="Five steps. Ten minutes. At the end you will have a Caribbean-anchored brief you can print." />
       <div className="flex items-center gap-1 mb-8">{fields.map((fl, i) => (<div key={fl.key} className={"flex-1 h-2 rounded-full " + (i < step ? "bg-sun" : i === step ? "bg-ink" : "bg-ink/10")} />))}</div>
       <article className="rounded-2xl bg-white border border-ink/10 shadow-soft p-6 md:p-8">
         <p className="uppercase text-xs tracking-wider text-ink/60 mb-1">Step {step + 1} of {fields.length}</p>
-        <h2 className="font-display text-3xl text-ink">{field.title}</h2>
+        <h2 className="font-display font-black uppercase text-3xl text-ink">{field.title}</h2>
         <p className="mt-2 text-ink/80">{field.prompt}</p>
         <p className="mt-1 text-sm text-ink/55">{field.hint}</p>
         <textarea value={values[field.key] ?? ""} onChange={(e) => setValues({ ...values, [field.key]: e.target.value })} placeholder={field.placeholder} rows={5} className="mt-4 w-full rounded-xl border border-ink/15 bg-sand/40 p-4 text-ink focus:border-sun focus:bg-white" />
@@ -65,12 +65,12 @@ export default function CRAFTPage() {
       </article>
       {complete && (
         <section id="craft-brief" className="mt-12">
-          <h2 className="font-display text-2xl text-ink mb-4">Your CRAFT brief</h2>
+          <h2 className="font-display font-black uppercase text-2xl text-ink mb-4">Your CRAFT brief</h2>
           <article className="rounded-2xl bg-white border border-ink/10 shadow-soft p-6 md:p-8 space-y-5">
             {fields.map((fl) => (<div key={fl.key}><p className="uppercase tracking-wider text-xs text-sun font-semibold">{fl.title}</p><p className="mt-1 text-ink leading-relaxed whitespace-pre-wrap">{values[fl.key]}</p></div>))}
           </article>
           <div className="mt-6 rounded-2xl bg-ink text-sand p-5">
-            <div className="flex items-baseline justify-between"><p className="font-display text-xl">Estimated AI-resistance</p><p className="text-sand/80 text-sm">{Math.round(aiResistanceScore * 100)}%</p></div>
+            <div className="flex items-baseline justify-between"><p className="font-display font-extrabold text-xl">Estimated AI-resistance</p><p className="text-sand/80 text-sm">{Math.round(aiResistanceScore * 100)}%</p></div>
             <div className="h-2 rounded-full bg-sand/15 mt-3 overflow-hidden"><div className="h-full bg-sun transition-all" style={{ width: Math.round(aiResistanceScore * 100) + "%" }} /></div>
           </div>
           <AiFeedback systemPrompt="You are a Caribbean assessment design expert. You read assessment briefs critically and suggest concrete, single-paragraph improvements. You always reference the specific Caribbean content the user has provided." userPrompt={aiPrompt} accent="bg-sun text-ink" buttonLabel="Generate CRAFT critique with AI" helperText="Claude will critique your brief and suggest one specific Threshold addition + a viva voce question." />

@@ -32,13 +32,13 @@ export default function CAREPage() {
   }, [answers, title, score]);
 
   return (
-    <div className="max-w-3xl mx-auto px-5 py-10">
+    <div className="max-w-3xl mx-auto px-5 pt-10 pb-16">
       <Section eyebrow="CARE · Consider · Analyse · Reflect · Evaluate" accent="text-palm" title="What kind of thinking does this assessment actually demand?" subtitle="Name an assessment you currently give. Score it honestly. The CARE diagnostic tells you, in under three minutes, how much of the thinking an AI system can do for your students." />
       <label className="block mb-6"><span className="text-xs uppercase tracking-wider text-ink/60">Assessment being diagnosed (optional)</span><input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g., ECON 2001 mid-term essay" className="mt-1 w-full rounded-xl border border-ink/15 bg-white p-3 text-ink focus:border-palm" /></label>
       <div className="space-y-6">
         {dims.map((d, i) => (
           <article key={d.key} className="rounded-2xl bg-white border border-ink/10 shadow-soft p-6">
-            <div className="flex items-baseline gap-3"><span className="text-palm font-display text-2xl">{i + 1}</span><h2 className="font-display text-xl text-ink">{d.title}</h2></div>
+            <div className="flex items-baseline gap-3"><span className="text-palm font-display font-extrabold text-2xl">{i + 1}</span><h2 className="font-display font-black uppercase text-xl text-ink">{d.title}</h2></div>
             <p className="mt-2 text-ink/85">{d.question}</p>
             <ul className="mt-3 space-y-1 text-sm text-ink/65 list-disc pl-5">{d.examples.map((ex, j) => (<li key={j}>{ex}</li>))}</ul>
             <Likert name={d.title} value={answers[d.key] ?? 0} onChange={(v) => setAnswers({ ...answers, [d.key]: v })} lowLabel="Minimal / AI can handle this" highLabel="Strong / requires a human" />
@@ -47,7 +47,7 @@ export default function CAREPage() {
       </div>
       {answered > 0 && (
         <section className="mt-10">
-          <h2 className="font-display text-2xl mb-4 text-ink">{complete ? ("AI-replaceability reading" + (title ? " — " + title : "")) : ("Preliminary reading (" + answered + "/4)")}</h2>
+          <h2 className="font-display font-black uppercase text-2xl mb-4 text-ink">{complete ? ("AI-replaceability reading" + (title ? " — " + title : "")) : ("Preliminary reading (" + answered + "/4)")}</h2>
           <ResultBand score={score} bands={[
             { min: 0, tone: "coral", label: "A large language model could largely complete this", message: "Redesign around the weakest dimension." },
             { min: 35, tone: "sun", label: "Partially AI-resistant", message: "Strengthen the weakest dimension by anchoring to Caribbean context." },
@@ -57,7 +57,7 @@ export default function CAREPage() {
           {complete && weakest && (
             <div className="mt-6 rounded-2xl bg-ink text-sand p-5">
               <p className="uppercase tracking-wider text-xs opacity-70">Weakest dimension</p>
-              <p className="font-display text-2xl mt-1">{weakest.title}</p>
+              <p className="font-display font-extrabold text-2xl mt-1">{weakest.title}</p>
               <p className="mt-2 opacity-90">Start the redesign here. Rewrite the task so {weakest.title.toLowerCase()} becomes unavoidable.</p>
             </div>
           )}

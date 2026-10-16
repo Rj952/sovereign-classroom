@@ -32,7 +32,7 @@ export default function Nav() {
             <Logo />
             <span className="font-display font-extrabold text-lg md:text-xl">The Sovereign Classroom</span>
           </Link>
-          <ul className="flex flex-wrap items-center gap-1 text-[15px] font-semibold">
+          <ul className="flex items-center gap-1 text-[15px] font-semibold w-full sm:w-auto overflow-x-auto whitespace-nowrap -mx-1 px-1 sm:mx-0 sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {links.map((l) => {
               const active = pathname === l.href;
               return (
