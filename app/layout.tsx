@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "The Sovereign Classroom — Caribbean Assessment in the Age of AI",
   description:
-    "An interactive companion to Dr. Rohan Jowallah's Sovereign Classroom keynote. Explore authentic assessment design through the SALF, CARE, CRAFT, and ACRE frameworks — grounded in Caribbean pedagogical traditions.",
+    "An interactive workshop by Dr. Rohan Jowallah. Explore authentic assessment design through the SALF, CARE, CRAFT, and ACRE frameworks — grounded in Caribbean pedagogical traditions.",
   keywords: [
     "Caribbean education",
     "AI assessment",
@@ -15,7 +15,6 @@ export const metadata: Metadata = {
     "CRAFT framework",
     "ACRE framework",
     "Rohan Jowallah",
-    "Sovereign Intelligence",
     "authentic assessment",
   ],
   authors: [{ name: "Dr. Rohan Jowallah" }],

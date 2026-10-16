@@ -15,7 +15,7 @@ export default function HomePage() {
         />
         <div className="relative max-w-5xl mx-auto px-5 pt-16 md:pt-24 pb-12">
           <p className="inline-block bg-ink/5 text-ink/70 px-3 py-1 rounded-full text-xs uppercase tracking-wider mb-5">
-            A companion to the keynote by Dr. Rohan Jowallah
+            By Dr. Rohan Jowallah
           </p>
           <h1 className="font-display text-4xl md:text-6xl font-semibold leading-[1.05] text-ink">
             Caribbean-authentic assessment<br />
@@ -34,7 +34,7 @@ export default function HomePage() {
           </div>
           <blockquote className="mt-12 border-l-4 border-sun pl-5 max-w-3xl text-ink/75 italic">
             "AI can write about Jamaica. It cannot write from Jamaica."
-            <span className="block not-italic mt-2 text-sm text-ink/60">— The Sovereign Classroom keynote, 2026</span>
+            <span className="block not-italic mt-2 text-sm text-ink/60">— Dr. Rohan Jowallah</span>
           </blockquote>
         </div>
       </section>
