@@ -12,7 +12,7 @@ export default function Footer() {
             <li>SALF — Sovereign AI Leadership Framework</li>
             <li>CARE — Consider · Analyse · Reflect · Evaluate</li>
             <li>CRAFT — Context · Role · Action · Format · Threshold</li>
-            <li>ACRE — Accuracy · Completeness · Relevance · Equity</li>
+            <li>ACRE — Accuracy · Context · Relevance · Equity</li>
           </ul>
         </div>
         <div>
