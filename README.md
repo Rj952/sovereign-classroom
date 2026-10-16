@@ -13,7 +13,7 @@ Live site: *(add Vercel URL here after deploy)*
 - **SALF — Sovereign AI Leadership Framework.** Five questions to ask before your institution adopts any AI assessment policy: Sovereignty, Accountability, Literacy, Fairness, Sustainability.
 - **CARE — Consider · Analyse · Reflect · Evaluate.** A thinking diagnostic that reveals, in three minutes, how much of your existing assessment a large language model can complete.
 - **CRAFT — Context · Role · Action · Format · Threshold.** A step-by-step wizard that produces a Caribbean-anchored assessment brief AI cannot convincingly fake.
-- **ACRE — Accuracy · Completeness · Relevance · Equity.** An equity audit with concrete redesign suggestions targeted at the weakest dimensions.
+- **ACRE — Accuracy · Context · Relevance · Equity.** An equity audit with concrete redesign suggestions targeted at the weakest dimensions.
 
 All data stays in the browser. No login. No tracking. No API keys required.
 

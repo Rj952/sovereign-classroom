@@ -86,7 +86,7 @@ export default function HomePage() {
           />
           <FrameworkCard
             acronym="ACRE"
-            expansion="Accuracy · Completeness · Relevance · Equity"
+            expansion="Accuracy · Context · Relevance · Equity"
             description="An equity audit. Score an existing assessment against four structural questions, with Caribbean-authenticity feedback and concrete redesign suggestions."
             href="/acre"
             accent="bg-coral"
