@@ -5,11 +5,11 @@ import Likert from "@/components/Likert";
 import ResultBand from "@/components/ResultBand";
 import AiFeedback from "@/components/AiFeedback";
 
-type Dim = { key: "accuracy" | "completeness" | "relevance" | "equity"; title: string; question: string; probes: string[]; lowFix: string; };
+type Dim = { key: "accuracy" | "context" | "relevance" | "equity"; title: string; question: string; probes: string[]; lowFix: string; };
 
 const dims: Dim[] = [
   { key: "accuracy", title: "Accuracy", question: "Does this assessment measure what we claim, or does it also measure familiarity with AI tools, internet access, or first-language fluency in academic English?", probes: ["Would a multilingual student writing in Caribbean English be penalised for style rather than thinking?", "Is an AI-detection score treated as evidence of misconduct?", "Does the rubric measure the intended competency?"], lowFix: "Replace AI-detection with a brief oral conversation. Make Caribbean English explicitly acceptable in the rubric." },
-  { key: "completeness", title: "Completeness", question: "Does it capture the full range of competencies we value, including oral tradition, community knowledge, and embodied expertise?", probes: ["Can a student with strong oral reasoning and weak written polish demonstrate mastery?", "Is community or family knowledge treated as legitimate evidence?", "Is written text the only mode of assessment?"], lowFix: "Add a viva voce, process portfolio, or community-engaged component." },
+  { key: "context", title: "Context", question: "Is this grounded in the context where it will be used — our classrooms, languages, communities and resource realities — or does it assume someone else's? Accurate is not enough. Accurate for whom?", probes: ["Are oral tradition, community knowledge, and Caribbean English or Creole treated as legitimate evidence?", "Would the task make sense to a student in a rural school with limited connectivity?", "Is written standard English the only mode a student can use to show mastery?"], lowFix: "Name the Caribbean setting the task lives in. Add a viva voce, process portfolio, or community-engaged component." },
   { key: "relevance", title: "Relevance", question: "Is this anchored in problems meaningful to Caribbean students, or do we default to European or North American exemplars as if they were universal?", probes: ["Are the cases, datasets, and examples from the Caribbean?", "Would a student feel this task speaks to their professional future?", "Do cited authors include Caribbean scholars?"], lowFix: "Swap one imported case for a Caribbean equivalent. Add a required Caribbean citation." },
   { key: "equity", title: "Equity", question: "Who is most likely to be disadvantaged, and is that a product of genuine learning differences or structural inequities in the design itself?", probes: ["Does the task assume reliable internet, paid software, or a quiet study environment?", "Are students with caring responsibilities or disability treated fairly in time allocation?", "Does the rubric translate cultural variation as deficit?"], lowFix: "Offer offline-compatible options. Extend timeframes where structural context warrants." },
 ];
@@ -26,7 +26,7 @@ export default function ACREPage() {
 
   const aiPrompt = useMemo(() => {
     const scoresList = dims.map(d => "- " + d.title + ": " + (answers[d.key] ?? 0) + "/4" + (notes[d.key] ? " (note: " + notes[d.key] + ")" : "")).join("\n");
-    let p = "A Caribbean university faculty member has audited an assessment using the ACRE framework (Accuracy, Completeness, Relevance, Equity). Higher = stronger.\n\n";
+    let p = "A Caribbean university faculty member has audited an assessment using the ACRE framework (Accuracy, Context, Relevance, Equity). Higher = stronger.\n\n";
     if (title) p += "Assessment: " + title + "\n\n";
     if (paste) p += "Prompt text they shared:\n" + paste + "\n\n";
     p += "Scores:\n" + scoresList + "\nOverall: " + Math.round(score*100) + "%\n\n";
@@ -36,7 +36,7 @@ export default function ACREPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-5 py-10">
-      <Section eyebrow="ACRE · Accuracy · Completeness · Relevance · Equity" accent="text-coral" title="Audit one assessment. This semester." subtitle="You do not need to redesign every assessment tonight. Apply ACRE to one. Just one. See what it shows you. That discomfort is the beginning of the redesign." />
+      <Section eyebrow="ACRE · Accuracy · Context · Relevance · Equity" accent="text-coral" title="Audit one assessment. This semester." subtitle="You do not need to redesign every assessment tonight. Apply ACRE to one. Just one. See what it shows you. That discomfort is the beginning of the redesign." />
       <div className="grid md:grid-cols-2 gap-4 mb-8">
         <label className="block"><span className="text-xs uppercase tracking-wider text-ink/60">Assessment name</span><input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g., HIST 3020 Final Essay" className="mt-1 w-full rounded-xl border border-ink/15 bg-white p-3 text-ink focus:border-coral" /></label>
         <label className="block"><span className="text-xs uppercase tracking-wider text-ink/60">Paste the prompt (optional)</span><textarea value={paste} onChange={(e) => setPaste(e.target.value)} rows={3} className="mt-1 w-full rounded-xl border border-ink/15 bg-white p-3 text-sm text-ink focus:border-coral" /></label>
