@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useIsland } from "@/components/IslandContext";
+import { islandPromptContext } from "@/components/islands";
 
 type Props = {
   systemPrompt: string;
@@ -14,6 +16,7 @@ export default function AiFeedback({ systemPrompt, userPrompt, disabled, buttonL
   const [loading, setLoading] = useState(false);
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
+  const { island } = useIsland();
 
   async function generate() {
     if (!userPrompt || userPrompt.trim().length < 10) {
@@ -27,7 +30,7 @@ export default function AiFeedback({ systemPrompt, userPrompt, disabled, buttonL
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ system: systemPrompt, prompt: userPrompt }),
+        body: JSON.stringify({ system: systemPrompt + " " + islandPromptContext(island), prompt: userPrompt }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
@@ -44,7 +47,7 @@ export default function AiFeedback({ systemPrompt, userPrompt, disabled, buttonL
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
           <p className="font-display text-xl text-ink">AI-generated reflection</p>
-          <p className="text-sm text-ink/60 mt-1">{helperText || "Personalized feedback grounded in Caribbean pedagogical context."}</p>
+          <p className="text-sm text-ink/60 mt-1">{helperText || "Personalized feedback grounded in Caribbean pedagogical context."} Tailored to {island.name}.</p>
         </div>
         <button onClick={generate} disabled={loading || disabled} className={`px-5 py-2.5 rounded-full text-sand text-sm font-medium ${accent} disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-95 transition-opacity no-print`}>
           {loading ? "Generating..." : buttonLabel}

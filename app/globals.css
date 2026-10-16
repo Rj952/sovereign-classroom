@@ -1,23 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,600&family=Source+Sans+3:wght@400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
-
 :root {
-  --background: #F5EFE6;
-  --foreground: #0F1B2D;
+  --background: #FAF4E8;
+  --foreground: #0B1A30;
 }
 
 html, body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3 {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Archivo', system-ui, sans-serif;
   letter-spacing: -0.01em;
 }
 
@@ -25,8 +25,14 @@ h1, h2, h3 {
   line-height: 1.7;
 }
 
+/* Madras-cloth stripe used as a section divider. */
+.madras {
+  height: 10px;
+  background: repeating-linear-gradient(90deg, #D62839 0 28px, #F4B400 28px 40px, #2E7D4F 40px 62px, #0B7373 62px 70px, #F4B400 70px 78px, #0B1A30 78px 84px);
+}
+
 :focus-visible {
-  outline: 2px solid #0B7B8A;
+  outline: 2px solid #0B7373;
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -40,7 +46,6 @@ h1, h2, h3 {
 }
 
 @media print {
-  nav, footer, .no-print { display: none !important; }
+  nav, footer, .no-print, .madras { display: none !important; }
   body { background: white; color: black; }
 }
-

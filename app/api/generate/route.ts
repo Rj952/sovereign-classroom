@@ -24,7 +24,7 @@ export async function POST(req: Request) {
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-haiku-4-5-20251001",
+        model: "claude-haiku-5-5",
         max_tokens: 1024,
         system: system || "You are a pedagogical expert on Caribbean higher education assessment in the age of AI. Be concise, practical, and grounded in specific Caribbean contexts.",
         messages: [{ role: "user", content: prompt }],
