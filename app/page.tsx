@@ -98,12 +98,12 @@ export default function HomePage() {
           <p className="max-w-[420px] text-[17px] leading-relaxed">Each takes 5–15 minutes and ends in a brief you can take to your department or committee.</p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          <div className="flex flex-col gap-2.5 rounded-[22px] p-6 min-h-[260px] bg-iris text-white">
-            <span className="self-start text-xs font-bold tracking-[0.12em] uppercase bg-sun text-ink px-2.5 py-1 rounded-full">Coming soon</span>
+          <Link href="/compass" className="flex flex-col gap-2.5 rounded-[22px] p-6 min-h-[260px] bg-iris text-white hover:-translate-y-0.5 transition-transform">
+            <span className="self-start text-xs font-bold tracking-[0.12em] uppercase bg-sun text-ink px-2.5 py-1 rounded-full">Start here</span>
             <span className="font-display font-black text-[34px]">COMPASS</span>
             <span className="text-sm font-bold tracking-wide uppercase opacity-90">Knowledge · Language · Data · Pedagogy · Future</span>
             <span className="leading-snug">Five &ldquo;whose?&rdquo; questions. See your shape. Circle your lowest point.</span>
-          </div>
+          </Link>
           {tools.map((t) => (
             <Link key={t.href} href={t.href} className={`flex flex-col gap-2.5 rounded-[22px] p-6 min-h-[260px] hover:-translate-y-0.5 transition-transform ${t.tone}`}>
               <span className="font-display font-black text-[34px] mt-[30px]">{t.acronym}</span>
