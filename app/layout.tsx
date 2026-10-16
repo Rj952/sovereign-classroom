@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { IslandProvider } from "@/components/IslandContext";
 
 export const metadata: Metadata = {
   title: "The Sovereign Classroom — Caribbean Assessment in the Age of AI",
@@ -34,9 +35,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col">
-        <Nav />
-        <main className="flex-1 fade-in">{children}</main>
-        <Footer />
+        <IslandProvider>
+          <Nav />
+          <main className="flex-1 fade-in">{children}</main>
+          <Footer />
+        </IslandProvider>
       </body>
     </html>
   );
