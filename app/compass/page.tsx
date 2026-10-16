@@ -117,7 +117,8 @@ export default function CompassPage() {
                         type="button"
                         role="radio"
                         aria-checked={on}
-                        onClick={() => setScores({ ...scores, [q.key]: n })}
+                        aria-label={`${n} – ${levels[n]}`}
+                        onClick={() => setScores((prev) => ({ ...prev, [q.key]: n }))}
                         className={`min-h-[64px] rounded-[14px] px-0.5 py-1.5 border-2 transition-colors ${on ? "text-white" : "bg-sand text-ink border-[#D8D0BF] hover:border-ink"}`}
                         style={on ? { background: q.color, borderColor: q.color } : undefined}
                       >
@@ -135,7 +136,7 @@ export default function CompassPage() {
         <aside aria-label="Your compass" className="flex-[1_1_360px] min-w-0 flex flex-col gap-4">
           <div className="bg-white rounded-[24px] p-6 border-2 border-ink">
             <p className="font-display font-extrabold text-lg uppercase">Your shape</p>
-            <svg viewBox="0 0 360 340" role="img" aria-label={`Compass shape: ${summary}`} className="w-full h-auto block mt-1.5">
+            <svg viewBox="-60 0 480 340" role="img" aria-label={`Compass shape: ${summary}`} className="w-full h-auto block mt-1.5">
               <polygon points={ring(5)} fill="#FAF4E8" stroke="#C8C0AE" strokeWidth="1" />
               {[4, 3, 2, 1].map((l) => <polygon key={l} points={ring(l)} fill="none" stroke="#DDD5C4" strokeWidth="1" />)}
               <path d={axes} stroke="#C8C0AE" strokeWidth="1" />
