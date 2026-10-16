@@ -46,7 +46,7 @@ export default function HomePage() {
           <FrameworkCard acronym="SALF" expansion="Sovereign AI Leadership Framework" description="Five foundational questions to ask before your institution adopts any AI governance policy — Sovereignty, Accountability, Literacy, Fairness, Sustainability." href="/salf" accent="bg-sea" />
           <FrameworkCard acronym="CARE" expansion="Consider · Analyse · Reflect · Evaluate" description="A thinking diagnostic. Applied honestly to an assessment, CARE quickly reveals which tasks a large language model can complete with ease — and which demand something irreducibly human." href="/care" accent="bg-palm" />
           <FrameworkCard acronym="CRAFT" expansion="Context · Role · Action · Format · Threshold" description="An assessment design scaffold. Walk step-by-step through a Caribbean-anchored brief your students can complete — and AI cannot convincingly simulate." href="/craft" accent="bg-sun text-ink" />
-          <FrameworkCard acronym="ACRE" expansion="Accuracy · Completeness · Relevance · Equity" description="An equity audit. Score an existing assessment against four structural questions, with Caribbean-authenticity feedback and concrete redesign suggestions." href="/acre" accent="bg-coral" />
+          <FrameworkCard acronym="ACRE" expansion="Accuracy · Context · Relevance · Equity" description="An equity audit. Score an existing assessment against four structural questions, with Caribbean-authenticity feedback and concrete redesign suggestions." href="/acre" accent="bg-coral" />
         </div>
       </section>
 
