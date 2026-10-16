@@ -49,7 +49,7 @@ export default function CRAFTPage() {
         <button type="button" onClick={() => setShowExample(!showExample)} className="mt-3 text-sm text-sea hover:underline">{showExample ? "Hide" : "Show"} Jamaica worked example</button>
         {showExample && (
           <div className="mt-2 text-sm bg-sand/60 border border-ink/10 rounded-xl p-4 text-ink/80">
-            <p className="uppercase text-xs tracking-wider text-ink/60 mb-1">From the keynote</p>
+            <p className="uppercase text-xs tracking-wider text-ink/60 mb-1">Worked example</p>
             <p>{field.example}</p>
             <button type="button" onClick={() => { setValues({ ...values, [field.key]: field.example }); setShowExample(false); }} className="mt-3 text-xs text-sea underline">Use this example</button>
           </div>
