@@ -1,6 +1,6 @@
 # The Sovereign Classroom
 
-> An interactive companion to Dr. Rohan Jowallah's keynote on Caribbean-authentic assessment in the age of artificial intelligence.
+> An interactive workshop by Dr. Rohan Jowallah on Caribbean-authentic assessment in the age of artificial intelligence.
 
 Four interactive tools — **SALF**, **CARE**, **CRAFT**, and **ACRE** — for faculty, department chairs, and academic leaders to design, audit, and govern assessment from a position of Caribbean sovereignty.
 
@@ -82,11 +82,9 @@ tailwind.config.ts    # Caribbean palette (sea, sun, palm, coral, sand, ink)
 
 ## Attribution
 
-SALF, CARE, CRAFT, and ACRE are proprietary frameworks © **Dr. Rohan Jowallah**, 2025–2026. They are presented most fully in *Sovereign Intelligence: A Caribbean Framework for AI Leadership in Education and Policy* (IGI Global, 2026).
+SALF, CARE, CRAFT, and ACRE are proprietary frameworks © **Dr. Rohan Jowallah**, 2025–2026.
 
-Please cite explicitly in any institutional documents, scholarship, or derivative work:
-
-> Jowallah, R. (2026). *Sovereign Intelligence: A Caribbean Framework for AI Leadership in Education and Policy*. IGI Global.
+Please cite explicitly in any institutional documents, scholarship, or derivative work.
 
 The frameworks may be used inside your institution for the purposes of assessment redesign, policy development, and faculty development. Commercial re-distribution or rebranding of the frameworks themselves requires written permission from the author.
 
@@ -95,7 +93,6 @@ The frameworks may be used inside your institution for the purposes of assessmen
 ## Credits
 
 - Application design & build: Claude (Anthropic) on behalf of Dr. Rohan Jowallah, April 2026.
-- Keynote source: *The Sovereign Classroom*, Dr. Rohan Jowallah, 2026.
 
 ---
 

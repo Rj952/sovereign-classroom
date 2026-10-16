@@ -7,7 +7,7 @@ export default function Footer() {
             The Sovereign Classroom
           </p>
           <p className="opacity-80">
-            An interactive companion to Dr. Rohan Jowallah&rsquo;s keynote on
+            An interactive workshop by Dr. Rohan Jowallah on
             Caribbean-authentic assessment in the age of artificial
             intelligence.
           </p>
@@ -33,10 +33,6 @@ export default function Footer() {
               © Dr. Rohan Jowallah, 2025–2026
             </span>
             . Cite explicitly in any institutional or scholarly use.
-          </p>
-          <p className="opacity-60 mt-3 text-xs">
-            From <em>Sovereign Intelligence: A Caribbean Framework for AI
-            Leadership in Education and Policy</em> (IGI Global, 2026).
           </p>
         </div>
       </div>
