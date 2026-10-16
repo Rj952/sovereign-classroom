@@ -5,7 +5,7 @@ export default function AboutPage() {
     <article className="max-w-3xl mx-auto px-5 py-12 prose-caribbean">
       <p className="inline-block bg-ink/5 text-ink/70 px-3 py-1 rounded-full text-xs uppercase tracking-wider mb-5">About</p>
       <h1 className="font-display text-4xl md:text-5xl text-ink mb-6">A blueprint, not a lament.</h1>
-      <p className="text-ink/85 leading-relaxed text-lg">The Sovereign Classroom is a companion application to the keynote of the same name by <strong>Dr. Rohan Jowallah</strong>. It translates four proprietary frameworks — SALF, CARE, CRAFT, and ACRE — into interactive tools educators can use to redesign assessment for authenticity in the age of artificial intelligence.</p>
+      <p className="text-ink/85 leading-relaxed text-lg">The Sovereign Classroom is an interactive application by <strong>Dr. Rohan Jowallah</strong>. It translates four proprietary frameworks — SALF, CARE, CRAFT, and ACRE — into interactive tools educators can use to redesign assessment for authenticity in the age of artificial intelligence.</p>
       <h2 className="font-display text-2xl mt-10 mb-3 text-ink">The central argument</h2>
       <p className="text-ink/85 leading-relaxed">The Caribbean is not behind the global AI curve. The Caribbean is being asked to drive in someone else's lane, at someone else's speed, toward someone else's destination. Assessment policy is one of the primary sites where sovereignty is either exercised or surrendered. Every assessment encodes a decision about whose knowledge counts and what kind of thinking we believe our students are capable of.</p>
       <h2 className="font-display text-2xl mt-10 mb-3 text-ink">The three traps</h2>
@@ -30,7 +30,7 @@ export default function AboutPage() {
         <Link href="/acre" className="rounded-xl bg-coral text-white p-4 hover:opacity-95"><p className="font-display text-lg">ACRE</p><p className="text-sm opacity-90">Run an equity audit on an assessment you already use.</p></Link>
       </div>
       <h2 className="font-display text-2xl mt-12 mb-3 text-ink">Attribution & citation</h2>
-      <p className="text-ink/85 leading-relaxed">SALF, CARE, CRAFT, and ACRE are proprietary frameworks © <strong>Dr. Rohan Jowallah</strong>, 2025–2026. Please cite explicitly in any institutional documents, research, or derivative work. The frameworks are developed most fully in <em>Sovereign Intelligence: A Caribbean Framework for AI Leadership in Education and Policy</em> (IGI Global, 2026).</p>
+      <p className="text-ink/85 leading-relaxed">SALF, CARE, CRAFT, and ACRE are proprietary frameworks © <strong>Dr. Rohan Jowallah</strong>, 2025–2026. Please cite explicitly in any institutional documents, research, or derivative work.</p>
       <blockquote className="mt-10 border-l-4 border-sun pl-5 text-ink/80 italic">Lead from here. Lead from who you are. Lead from what you know.</blockquote>
     </article>
   );
